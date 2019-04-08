@@ -1,0 +1,163 @@
+{
+  "@context": {
+    "ApiDocumentation": "hydra:ApiDocumentation", 
+    "description": "hydra:description", 
+    "domain": {
+      "@id": "rdfs:domain", 
+      "@type": "@id"
+    }, 
+    "expects": {
+      "@id": "hydra:expects", 
+      "@type": "@id"
+    }, 
+    "hydra": "https://raw.githubusercontent.com/HydraCG/Specifications/master/spec/latest/core/core.jsonld#", 
+    "label": "rdfs:label", 
+    "method": "hydra:method", 
+    "possibleStatus": "hydra:possibleStatus", 
+    "property": {
+      "@id": "hydra:property", 
+      "@type": "@id"
+    }, 
+    "range": {
+      "@id": "rdfs:range", 
+      "@type": "@id"
+    }, 
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#", 
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#", 
+    "readonly": "hydra:readonly", 
+    "required": "hydra:required", 
+    "returns": {
+      "@id": "hydra:returns", 
+      "@type": "@id"
+    }, 
+    "statusCode": "hydra:statusCode", 
+    "statusCodes": "hydra:statusCodes", 
+    "subClassOf": {
+      "@id": "rdfs:subClassOf", 
+      "@type": "@id"
+    }, 
+    "supportedClass": "hydra:supportedClass", 
+    "supportedOperation": "hydra:supportedOperation", 
+    "supportedProperty": "hydra:supportedProperty", 
+    "title": "hydra:title", 
+    "vocab": "http://real-world.com/api/apidoc#", 
+    "writeonly": "hydra:writeonly"
+  }, 
+  "@id": "http://real-world.com/api/apidoc", 
+  "@type": "ApiDocumentation", 
+  "description": "Hydra API Documentation for Real-World App, realworld.io", 
+  "possibleStatus": [], 
+  "supportedClass": [
+    {
+      "@id": "vocab:Article",
+      "property": "https://auto.schema.org/SocialMediaPosting",
+      "@type": "hydra:Class", 
+      "description": "An article on social media, posted and dispalyed by this example app", 
+      "supportedOperation": [], 
+      "supportedProperty": [
+        {
+          "@type": "SupportedProperty", 
+          "property": "https://auto.schema.org/articleBody", 
+          "readonly": false, 
+          "required": true, 
+          "title": "Body", 
+          "writeonly": false
+        },
+        {
+          "@type": "SupportedProperty", 
+          "property": "https://auto.schema.org/headline", 
+          "readonly": false, 
+          "required": true, 
+          "title": "Title", 
+          "writeonly": false
+        },
+        ... # the other properties in the Article model to be added here
+      ], 
+      "title": "Article"
+    },
+    
+    ... # the other Tag, Comment, Profile, User models to be added here
+    {
+      "@id": "https://raw.githubusercontent.com/HydraCG/Specifications/master/spec/latest/core/core.jsonld#Collection", 
+      "@type": "hydra:Class", 
+      "description": null, 
+      "supportedOperation": [], 
+      "supportedProperty": [
+        {
+          "@type": "SupportedProperty", 
+          "property": "https://raw.githubusercontent.com/HydraCG/Specifications/master/spec/latest/core/core.jsonld#member", 
+          "readonly": false, 
+          "required": null, 
+          "title": "members", 
+          "writeonly": false
+        }
+      ], 
+      "title": "Collection"
+    }, 
+    {
+      "@id": "https://raw.githubusercontent.com/HydraCG/Specifications/master/spec/latest/core/core.jsonld#Resource", 
+      "@type": "hydra:Class", 
+      "description": null, 
+      "supportedOperation": [], 
+      "supportedProperty": [], 
+      "title": "Resource"
+    },
+    ... # Resources and Collections for the HydraClass models defined above to be added
+    {
+      "@id": "vocab:EntryPoint", 
+      "@type": "hydra:Class", 
+      "description": "The main entry point or homepage of the API.", 
+      "supportedOperation": [
+        {
+          "@id": "_:entry_point", 
+          "@type": "hydra:Operation", 
+          "description": "The APIs main entry point.", 
+          "expects": null, 
+          "method": "GET", 
+          "returns": null, 
+          "statusCodes": "vocab:EntryPoint"
+        }
+      ], 
+      "supportedProperty": [
+        {
+          "hydra:description": "The Article Class", 
+          "hydra:title": "article", 
+          "property": {
+            "@id": "vocab:EntryPoint/Article", 
+            "@type": "hydra:Link", 
+            "description": "Class for an article", 
+            "domain": "vocab:EntryPoint", 
+            "label": "Article", 
+            "range": "vocab:Article", 
+            "supportedOperation": [
+              {
+                "@id": "_:getarticle", 
+                "@type": "hydra:Operation", 
+                "description": null, 
+                "expects": null, 
+                "label": "GetArticle", 
+                "method": "GET", 
+                "returns": "vocab:Article", 
+                "statusCodes": [
+                  {
+                    "description": "Article not found", 
+                    "statusCode": 404
+                  }, 
+                  {
+                    "description": "Article returned", 
+                    "statusCode": 200
+                  }
+                ]
+              }
+            ]
+          }, 
+          "readonly": false, 
+          "required": null, 
+          "writeonly": false
+        },
+        ... # links to other resources and collections to be added to the Entrypoint
+      ], 
+      "title": "EntryPoint"
+    }
+  ]
+}
